@@ -3,17 +3,17 @@
 
 
 class WaterSensor:
-    def __init__(self, id, timestamp, value):
+    def __init__(self, id, vc, ts):
         self.id = id
-        self.timestamp = timestamp
-        self.value = value
+        self.vc = vc
+        self.ts = ts
 
     def to_dict(self):
         return {
             'id': self.id,
-            'timestamp': self.timestamp,
-            'value': self.value
+            'vc': self.vc,
+            'ts': self.ts
         }
 
     def __repr__(self):
-        return f"WaterSensor(id={self.id}, timestamp={self.timestamp}, value={self.value})"
+        return f"WaterSensor(id={self.id}, vc={self.vc}, ts={self.ts})"

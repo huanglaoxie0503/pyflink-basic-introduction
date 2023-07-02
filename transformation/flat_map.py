@@ -1,7 +1,5 @@
 #!/usr/bin/python
 # -*- coding:UTF-8 -*-
-import json
-
 from pyflink.common.typeinfo import Types
 from pyflink.datastream import StreamExecutionEnvironment
 
@@ -13,9 +11,9 @@ def show(ds, env):
     env.execute()
 
 
-def map_demo():
+def flat_map_demo():
     """
-    Map 算子的基本用法
+    Filter 算子的基本用法
     :return:
     """
     env = StreamExecutionEnvironment.get_execution_environment()
@@ -23,9 +21,11 @@ def map_demo():
 
     sensor_data = [
         (1, WaterSensor("s1", 1, 1)),
+        (1, WaterSensor("s1", 11, 11)),
         (2, WaterSensor("s2", 2, 2)),
         (3, WaterSensor("s3", 3, 3))
     ]
+
     # PyFlink 在版本 1.14.0 之后的 API 发生了一些变化，Types.of() 方法已经被移除。要指定数据流的类型，可以使用 Types.ROW 并提供相应的字段类型。
     sensor_stream = env.from_collection(
         collection=sensor_data,
@@ -33,24 +33,23 @@ def map_demo():
 
     # sensor_stream.print()
 
-    def update_value(data):
-        """
-        获取 WaterSensor id 、更新相应的value值
-        :param data:
-        :return:
-        """
-        # parse the json
-        info = json.dumps(data.info)
-        json_data = json.loads(info)
-        items = {
-            'id': json_data['id'],
-            'vc': json_data['vc'],
-            'ts': int(json_data['ts']) * 10
-        }
-        return items, json_data['id']
+    def flat_map_operation(data):
+        items = []
+        json_data = data.info
+        s_id = json_data.get('id')
+        if s_id == 's1':
+            vc = json_data.get('vc')
+            items.append(vc)
+        elif s_id == 's3':
+            vc = json_data.get('vc')
+            ts = json_data.get('ts')
+            items.append(vc)
+            items.append(ts)
 
-    show(sensor_stream.map(update_value), env)
+        return items
+
+    show(sensor_stream.flat_map(flat_map_operation), env)
 
 
 if __name__ == '__main__':
-    map_demo()
+    flat_map_demo()

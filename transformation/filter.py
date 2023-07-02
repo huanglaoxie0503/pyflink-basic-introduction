@@ -13,9 +13,9 @@ def show(ds, env):
     env.execute()
 
 
-def map_demo():
+def filter_demo():
     """
-    Map 算子的基本用法
+    Filter 算子的基本用法
     :return:
     """
     env = StreamExecutionEnvironment.get_execution_environment()
@@ -30,8 +30,6 @@ def map_demo():
     sensor_stream = env.from_collection(
         collection=sensor_data,
         type_info=Types.ROW_NAMED(["id", "info"], [Types.INT(), Types.MAP(Types.STRING(), Types.STRING())]))
-
-    # sensor_stream.print()
 
     def update_value(data):
         """
@@ -49,8 +47,8 @@ def map_demo():
         }
         return items, json_data['id']
 
-    show(sensor_stream.map(update_value), env)
+    show(sensor_stream.filter(lambda data: data.id > 1).map(update_value), env)
 
 
 if __name__ == '__main__':
-    map_demo()
+    filter_demo()
