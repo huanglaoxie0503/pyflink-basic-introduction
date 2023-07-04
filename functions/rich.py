@@ -52,7 +52,6 @@ class WaterSensorRichMapFunction(MapFunction):
         # 在这里实现对输入数据的转换操作
         return WaterSensor(value.id, value.ts + 1, value.vc * 2)
 
-
 class RichMapFunction(MapFunction):
     def __init__(self):
         pass

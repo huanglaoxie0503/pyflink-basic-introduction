@@ -34,4 +34,4 @@ def rich_map_demo():
 
 
 if __name__ == '__main__':
-    map_2_demo()
+    rich_map_demo()
