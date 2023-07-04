@@ -4,6 +4,11 @@ import os
 import json
 
 
+def show(ds, env):
+    ds.print()
+    env.execute()
+
+
 def get_jar_file(dir_path, filters):
     """
     获取jar包，按格式拼接并返回
