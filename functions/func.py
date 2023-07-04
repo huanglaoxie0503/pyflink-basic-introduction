@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding:UTF-8 -*-
 from pyflink.common import Types
-from pyflink.datastream import MapFunction, ProcessFunction, OutputTag
+from pyflink.datastream import MapFunction, CoMapFunction, ProcessFunction, OutputTag
 
 from model.water_sensor import WaterSensor
 
@@ -30,3 +30,11 @@ class WaterSensorProcessFunction(ProcessFunction):
         else:
             # 非 s1、s2的数据，放到主流中
             yield value
+
+
+class CustomerCoMapFunction(CoMapFunction):
+    def map1(self, value):
+        return value
+
+    def map2(self, value):
+        return value
