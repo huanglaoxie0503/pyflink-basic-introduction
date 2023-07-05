@@ -2,6 +2,19 @@
 # -*- coding:UTF-8 -*-
 import os
 import json
+import time
+
+
+def time_stamp_to_date(time_num):
+    """
+    输入毫秒级的时间，转出正常格式的时间
+    :param time_num: 13位时间戳
+    :return:
+    """
+    time_stamp = float(time_num/1000)
+    time_array = time.localtime(time_stamp)
+    other_style_time = time.strftime("%Y-%m-%d %H:%M:%S", time_array)
+    return other_style_time
 
 
 def show(ds, env):
@@ -38,7 +51,4 @@ def dirt_sort(items):
 
 
 if __name__ == '__main__':
-    info = """
-     {\"16th Latest rejected event - Time\":\"Invalid value\",\"Total number of successful events\":\"88966303\",\"7th Latest successful event - Time\":\"Invalid value\",\"18th Latest rejected event - Event Code\":\"No history reported\",\"15th Latest rejected event - Time\":\"Invalid value\",\"19th Latest rejected event - Time\":\"0\",\"10th Latest successful event - Time\":\"Invalid value\",\"Event ID\":\"0d\",\"20th Latest rejected event - Time\":\"0\",\"17th Latest rejected event - Time\":\"0\",\"17th Latest rejected event - Event Code\":\"No history reported\",\"13th Latest rejected event - Time\":\"Invalid value\",\"2nd Latest successful event - Time\":\"Invalid value\",\"9th Latest successful event - Time\":\"Invalid value\",\"8th Latest successful event - Time\":\"Invalid value\",\"17th Latest rejected event - Additional Event Data\":\"Default value\",\"Total number of rejected events\":\"07202042\",\"Latest successful event - Time\":\"Invalid value\",\"3rd Latest successful event - Time\":\"Invalid value\",\"19th Latest rejected event - Event Code\":\"No history reported\",\"4th Latest successful event - Time\":\"Invalid value\",\"20th Latest rejected event - Additional Event Data\":\"Default value\",\"18th Latest rejected event - Additional Event Data\":\"Default value\",\"6th Latest successful event - Time\":\"Invalid value\",\"11th Latest rejected event - Time\":\"Invalid value\",\"12th Latest rejected event - Time\":\"Invalid value\",\"19th Latest rejected event - Additional Event Data\":\"Default value\",\"14th Latest rejected event - Time\":\"Invalid value\",\"5th Latest successful event - Time\":\"Invalid value\",\"18th Latest rejected event - Time\":\"0\",\"20th Latest rejected event - Event Code\":\"No history reported\"}
-    """.strip()
-    dirt_sort(items=info)
+    print(time_stamp_to_date(1688540700000))
