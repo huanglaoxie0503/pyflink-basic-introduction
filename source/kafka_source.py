@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding:UTF-8 -*-
+from pyflink.common import Duration
 from pyflink.datastream import StreamExecutionEnvironment, RuntimeExecutionMode
 from pyflink.datastream.connectors.kafka import KafkaSource, KafkaOffsetsInitializer
 from pyflink.common.serialization import SimpleStringSchema
@@ -23,6 +24,7 @@ if __name__ == '__main__':
         .build()
 
     kafka_data_stream = env.from_source(source, WatermarkStrategy.no_watermarks(), "Kafka Source")
+    # kafka_data_stream = env.from_source(source, WatermarkStrategy.for_bounded_out_of_orderness(Duration.of_seconds(3)).with_timestamp_assigner())
 
     kafka_data_stream.print()
 

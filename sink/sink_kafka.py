@@ -61,6 +61,8 @@ def sink_kafka_demo():
 if __name__ == '__main__':
     sink_kafka_demo()
     """
+    bin/kafka-server-start.sh -daemon config/server.properties
+    
     bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic pyflink_kafka Created topic pyflink_kafka
     bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic sink_kafka Created topic sink_kafka
 
