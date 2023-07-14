@@ -5,8 +5,8 @@
 class WaterSensor:
     def __init__(self, id, vc, ts):
         self.id = id
-        self.vc = vc
         self.ts = ts
+        self.vc = vc
 
     def to_dict(self):
         return {
