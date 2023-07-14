@@ -109,8 +109,48 @@ print(pyflink.__version__)
 这样通过conda就可以方便快捷地安装PyFlink环境,并管理多个版本。
 
 conda也能自动处理PyFlink所依赖的其他包,如py4j、pandas等。非常适合用于数据科学、机器学习项目中。
-- 创建PyFlink环境
+### 创建PyFlink环境
+这里是在Python中创建PyFlink执行环境的常见方式:
 
+**1. 创建批处理环境**
+
+```python
+from pyflink.dataset import ExecutionEnvironment
+
+env = ExecutionEnvironment.get_execution_environment()
+```
+
+**2. 创建流处理环境**
+
+```python
+from pyflink.datastream import StreamExecutionEnvironment
+
+env = StreamExecutionEnvironment.get_execution_environment()
+```
+
+**3. 设置执行模式**
+
+```python
+# 本地执行
+env.set_runtime_mode(RuntimeExecutionMode.LOCAL) 
+
+# 集群执行 
+env.set_runtime_mode(RuntimeExecutionMode.CLUSTER)
+```
+
+**4. 注册函数**
+
+```python
+env.register_function("my_udf", udf)
+```
+
+**5. 配置参数** 
+
+```python
+env.get_config().set_parallelism(16)
+```
+
+通过创建执行环境,可以启动PyFlink作业的运行,并进行必要的配置。
 ## PyFlink基础概念
 
 ### Execution Environment
