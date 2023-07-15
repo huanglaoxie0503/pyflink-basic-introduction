@@ -25,7 +25,7 @@ def sink_kafka_demo():
     brokers = "localhost:9092"
     source = KafkaSource.builder() \
         .set_bootstrap_servers(brokers) \
-        .set_topics("pyflink_kafka") \
+        .set_topics("crawl") \
         .set_group_id("my-group") \
         .set_starting_offsets(KafkaOffsetsInitializer.earliest()) \
         .set_value_only_deserializer(SimpleStringSchema()) \
@@ -63,9 +63,11 @@ if __name__ == '__main__':
     """
     bin/kafka-server-start.sh -daemon config/server.properties
     
-    bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic pyflink_kafka Created topic pyflink_kafka
+    bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic crawl Created topic crawl
     bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic sink_kafka Created topic sink_kafka
-
+    
+    bin/kafka-topics.sh --bootstrap-server localhost:9092 --list              
+    bin/kafka-topics.sh --delete --bootstrap-server localhost:9092 --topic pyflink_kafka
     bin/kafka-console-producer.sh --broker-list localhost:9092 --topic pyflink_kafka
     bin/kafka-console-consumer.sh --bootstrap-server localhost:9092  --topic pyflink_kafka --from-beginning
     """
