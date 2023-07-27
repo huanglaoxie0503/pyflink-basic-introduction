@@ -13,4 +13,4 @@ def sink_doris_demo():
         .setTableIdentifier("db.table") \
         .build()
 
-    doris_sink = DorisSink.sink(doris_options)
+    doris_sink = DorisSink.sink_to_mysql(doris_options)

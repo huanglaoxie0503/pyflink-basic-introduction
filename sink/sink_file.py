@@ -14,7 +14,7 @@ def sink_file_demo():
     env.enable_checkpointing(2000, mode=CheckpointingMode.EXACTLY_ONCE)
 
     path = "file:///Users/oscar/data/salecourse.log"
-    source = FileSource.for_record_stream_format(StreamFormat.text_line_format('utf-8'), *path)\
+    source = FileSource.for_record_stream_format(StreamFormat.text_line_format('utf-8'), *path) \
         .monitor_continuously(Duration.of_millis(5)).build()
 
     sink = FileSink.for_row_format(
@@ -24,8 +24,6 @@ def sink_file_demo():
             part_size=1024 ** 3, rollover_interval=15 * 60 * 1000, inactivity_interval=5 * 60 * 1000
         )
     ).build()
-
-
 
 
 if __name__ == '__main__':

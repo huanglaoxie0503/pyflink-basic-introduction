@@ -18,13 +18,14 @@ def wordCountBatch():
     # conf = Configuration()
     env = StreamExecutionEnvironment.get_execution_environment()
     env.set_runtime_mode(RuntimeExecutionMode.BATCH)
+    env.is_chaining_enabled()
     # env.set_parallelism(1)
     # TODO 2、读取数据：从文件中读取
     # dataSource = env.from_collection(word_count_data)
     dataSource = env.read_text_file('/Users/oscar/data/word.txt')
     # dataSource = env.read_text_file('/Users/oscar/mx/文档/dwd_cms_loan_order.csv')
     # TODO 3、切分、转换(word, 1)
-
+    dataSource.map(lambda x: x * 10).slot_sharing_group('1')
     # dataSource.rescale()
     # dataSource.rebalance()
     # dataSource.broadcast()

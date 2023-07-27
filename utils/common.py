@@ -5,6 +5,23 @@ import json
 import time
 
 
+def get_jar_file(dir_path, need_jars):
+    """
+    获取jar包，按格式拼接并返回
+    :param dir_path: jar 包目录
+    :param need_jars: 需要的jar 包
+    :return:
+    """
+    jars = []
+    for root, dirs, files in os.walk(dir_path):
+        for file in files:
+            sub_path = os.path.join(root, file)
+            if file.endswith('.jar') and file in need_jars:
+                jars.append(sub_path)
+    str_jars = ';'.join(['file://' + jar for jar in jars])
+    return str_jars
+
+
 def time_stamp_to_date(time_num):
     """
     输入毫秒级的时间，转出正常格式的时间
@@ -20,24 +37,6 @@ def time_stamp_to_date(time_num):
 def show(ds, env):
     ds.print()
     env.execute()
-
-
-def get_jar_file(dir_path, filters):
-    """
-    获取jar包，按格式拼接并返回
-    :param filters:
-    :param dir_path:
-    :return:
-    """
-    jars = []
-    for root, dirs, files in os.walk(dir_path):
-        for file in files:
-            sub_path = os.path.join(root, file)
-            if file.endswith('.jar') and file in filters:
-                jars.append(sub_path)
-    str_jars = ';'.join(['file://' + jar for jar in jars])
-    # print(str_jars)
-    return str_jars
 
 
 def dirt_sort(items):
