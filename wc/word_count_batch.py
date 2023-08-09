@@ -5,10 +5,14 @@ from pyflink.datastream import StreamExecutionEnvironment, RuntimeExecutionMode
 
 
 def split(lines):
-    yield from lines.split(' ')
+    r = lines.split(' ')
+    yield from r
 
 
 def word_count_batch():
+    """
+    DataStream 实现 WordCount 有界流（读文件）
+    """
     # TODO 1、创建执行环境
     # conf = Configuration()
     env = StreamExecutionEnvironment.get_execution_environment()
@@ -23,11 +27,9 @@ def word_count_batch():
         .reduce(lambda i, j: (i[0], i[1] + j[1]))
 
     # TODO 6、输出
-    print("Printing result to stdout. Use --output to specify output path.")
     ds.print()
 
     env.execute("wordCountBatch")
-    # env.execute_async()
 
 
 if __name__ == '__main__':
