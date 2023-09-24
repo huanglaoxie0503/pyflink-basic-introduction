@@ -29,6 +29,7 @@ class StateTTLKeyedProcessFunction(KeyedProcessFunction):
             .set_state_visibility(StateTtlConfig.StateVisibility.NeverReturnExpired).build()
         # TODO 2.状态描述器 启用 TTL
         state_descriptor = ValueStateDescriptor('last_vc_state', Types.INT())
+        # 调用状态描述器的.enable_time_to_live()方法启动TTL功能
         state_descriptor.enable_time_to_live(state_ttl_config)
 
         self.last_vc_value = runtime_context.get_state(state_descriptor=state_descriptor)
