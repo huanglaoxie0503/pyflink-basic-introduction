@@ -9,7 +9,7 @@ from pyflink.datastream.connectors.kafka import KafkaSource, KafkaOffsetsInitial
 
 def sink_kafka_demo():
     env = StreamExecutionEnvironment.get_execution_environment()
-    env.add_jars("file:///Users/oscar/software/jars/flink-sql-connector-kafka-1.16.1.jar")
+    env.add_jars("file:///Users/oscar/software/jars/flink-sql-connector-kafka-1.17.1.jar")
     env.set_parallelism(2)
     # 如果是精准一次，必须开启checkpoint
     env.enable_checkpointing(2000, mode=CheckpointingMode.EXACTLY_ONCE)
@@ -21,7 +21,7 @@ def sink_kafka_demo():
     3、设置事务超时时间：   checkpoint间隔 <  事务超时时间  < max的15分钟
     """
 
-    # 指定 kafka 的地址和端口
+    # 指定 kafka 的地址和端
     brokers = "localhost:9092"
     source = KafkaSource.builder() \
         .set_bootstrap_servers(brokers) \
